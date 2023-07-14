@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VerifyCodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('/user',[UserContro])
+    Route::get('/dashboard',function (){
+        echo 'dashboard';
+    });
 });
+
+
+Route::post('/auth',[AuthController::class,'authenticate'])->name('login');
+Route::post('/verify-code',[VerifyCodeController::class,'verify']);

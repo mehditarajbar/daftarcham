@@ -5,7 +5,7 @@ const routes = [
     {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
-        component: ()=>import('../pages/404.vue')
+        component: () => import('../pages/404.vue')
     }
     ,
     {
@@ -31,6 +31,11 @@ const routes = [
                 name: 'Login',
                 component: () => import('../pages/Login.vue')
             },
+            {
+                path: '/verify-code',
+                name: 'Verify',
+                component: () => import('../pages/VerifyCode.vue')
+            }
         ]
     },
 
@@ -44,6 +49,15 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     if (to.meta.requiresAuth && !store.state.user.token) {
         next({ name: 'Login' });
+
+    } else if (to.name === 'Verify') {
+        if (store.state.user.data.verify === 'sending') {
+            next()
+
+        } else {
+
+            next({ name: 'Login' })
+        }
     } else if (store.state.user.token && (to.meta.isGuest)) {
         next({ name: 'Dashboard' });
     } else {
