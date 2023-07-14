@@ -14,7 +14,12 @@ const routes = [
         component: () => import('../components/DefaultLayout.vue'),
         meta: { requiresAuth: true },
         children: [
-            { path: '/dashboard', name: 'Dashboard', component: () => import('../pages/Dashboard.vue') }
+            { path: '/dashboard', name: 'Dashboard', component: () => import('../pages/Dashboard.vue') },
+            { path: '/notes', name: 'Notes', component: () => import('../pages/Notes.vue') },
+            { path: '/tasks', name: 'Tasks', component: () => import('../pages/Tasks.vue') },
+            { path: '/team', name: 'Team', component: () => import('../pages/Team.vue') },
+            { path: '/setting', name: 'Setting', component: () => import('../pages/Setting.vue') },
+
         ]
 
     }

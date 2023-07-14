@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
+    public static $wrap='user';
     /**
      * Transform the resource into an array.
      *
@@ -14,6 +15,10 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'name'=>$this->name,
+            'mobile'=>$this->mobile,
+            'mobile_verified_at'=>$this->mobile_verified_at
+        ];
     }
 }

@@ -4,15 +4,13 @@ export async function csrf(){
     await axiosClient.get('/sanctum/csrf-cookie')
 }
 
-
-export function register({ commit }, user) {
-    return axiosClient
-        .post('/register', user)
-        .then(({ data }) => {
-            commit('setUser', data.user);
-            commit('setToken', data.token);
-            return data
-        })
+export async function logout({commit}){
+    csrf()
+    await axiosClient.post('/api/logout')
+    .then((res)=>{
+        commit('logout')
+        return res;
+    })
 }
 
 export async function login({ commit }, data) {
@@ -26,10 +24,9 @@ export async function login({ commit }, data) {
 
 export async function authentication({commit},data){
     csrf()
-    return await axiosClient
+     await axiosClient
     .post('/api/verify-code',data)
-    .then(({data})=>{
-        // commit('setUser', data.user);
+    .then(({data})=>{    
         commit('setToken', data.token);
         return data;
     })
@@ -37,7 +34,7 @@ export async function authentication({commit},data){
 
 export async function setUser({commit}){
     return await axiosClient
-    .get('/api/user',data)
+    .get('/api/user')
     .then(({data})=>{
         commit('setUser',data.user)
         return data;

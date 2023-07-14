@@ -12,6 +12,12 @@ export function setToken(state, token) {
     }
 }
 
-export function setVerify(state,verifyStatus){
-    state.user.data.verify=verifyStatus
+export function setVerify(state, verifyStatus) {
+    state.user.data.verify = verifyStatus
+}
+
+export function logout(state) {
+    state.user.data = {};
+    state.user.token = null;
+    sessionStorage.removeItem('TOKEN');
 }
