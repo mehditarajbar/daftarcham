@@ -13,7 +13,7 @@ function loguot() {
 </script>
 
 <template>
-    <div class="grid grid-rows-2 gap-2">
+    <div class="grid grid-rows-3 gap-2">
         <nav class="text-sm text-[#787878]">
             <router-link :to="{ name: 'Dashboard' }" class="flex px-3 py-3 hover:text-black "
                 :class="this.$route.path === '/dashboard' ? 'text-black' : ''">
@@ -57,10 +57,10 @@ function loguot() {
 
                 <span class="px-2 py-1">Team</span>
             </router-link>
-
         </nav>
+        
     </div>
-    <div class="row-start-3">
+    <div class="row-end-3">
         <hr>
         <nav class="text-sm text-[#787878]">
             <router-link :to="{ name: 'Setting' }" class="flex px-3 py-3 hover:text-black"
