@@ -5,3 +5,12 @@
 body{
 background-color: #e4e4e4;
 }
+
+
+/* Icons In Header */
+.custom-transfer-message{
+    transform: translate(930px, 82px)!important;
+}
+.custom-transfer-notification{
+    transform: translate(910px, 82px)!important;
+}

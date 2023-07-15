@@ -2,8 +2,8 @@
 import { ref } from "vue";
 import Sidebar from "./Sidebar.vue"
 import Header from "./Header.vue"
+import 'flowbite/dist/flowbite';
 const showSidebar = ref(false)
-
 
 </script>
 
@@ -18,14 +18,24 @@ const showSidebar = ref(false)
         rounded-xl
         absolute
         left-0
-        md:relative
-        md:-translate-x-0
-        transform
+        absolute
+        sm:relative
         -translate-x-full
+        transform
         transition
         duration-200
         ease-in-out
-        " :class="{ 'relative -translate-x-0': showSidebar }">
+        translate-x-0
+        
+        " :class="{ '-translate-x-full left-2 z-10': showSidebar }">
+            <button @click="showSidebar = !showSidebar" class="block sm:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6 ">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+
+            </button>
             <Sidebar />
         </div>
         <!-- /Sidebar -->
@@ -39,11 +49,10 @@ const showSidebar = ref(false)
                             d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
                 </button>
-                <Header/>
+                <Header />
             </div>
 
             <div class="px-2 py-4 ml-5 text-black font-extrabold">
-                Content
                 <router-view></router-view>
             </div>
         </div>

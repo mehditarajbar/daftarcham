@@ -13,9 +13,11 @@
     "@heroicons/vue": "^2.0.18",
     "@tailwindcss/forms": "^0.5.3",
     "axios": "^1.4.0",
+    "flowbite": "^1.7.0",
     "vue": "^3.2.47",
     "vue-router": "^4.0.13",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "vuex-multi-tab-state": "^1.0.17"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",

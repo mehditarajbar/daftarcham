@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import axiosClient from "../axios";
+import createMultiTabState from 'vuex-multi-tab-state';
 import * as mutations from './mutations'
 import * as actions from './actions'
 const store = createStore({
@@ -12,7 +12,12 @@ const store = createStore({
     getters: {},
     modules:{},
     actions,
-    mutations
+    mutations, 
+    plugins: [
+        createMultiTabState([
+            'user'
+        ]),
+    ],
 });
 
 export default store;
