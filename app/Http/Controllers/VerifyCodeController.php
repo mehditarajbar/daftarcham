@@ -23,10 +23,16 @@ class VerifyCodeController extends Controller
             ->where('user_id', '=', $user->id)
             ->first();
         if ($verifyCode && Carbon::now()->isAfter($verifyCode->expire_at)) {
-             throw new ValidationException('Code is Expired Date!');
+            return response([
+                'errors'=>['code'=>['Code is Expired Date!']]
+            ],Response::HTTP_UNPROCESSABLE_ENTITY);
+//             throw new ValidationException('');
         }
         $user->update([
             'mobile_verified_at' => Carbon::now()
+        ]);
+        $verifyCode->update([
+            'expire_at'=>Carbon::now()
         ]);
         return response([
             'success' => true,
@@ -35,4 +41,6 @@ class VerifyCodeController extends Controller
         ], Response::HTTP_ACCEPTED);
 
     }
+
+
 }

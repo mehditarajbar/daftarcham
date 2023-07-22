@@ -2,6 +2,7 @@
 </script>
 
 <template>
+    
     <div class="grid grid-rows-1 grid-flow-col gap-2 pb-3">
         <div class="row-start-1 row-span-2">
             <div

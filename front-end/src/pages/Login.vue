@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router';
 import store from '../store';
 import axios from 'axios';
+import toast from '../components/lib/Toast';
 
 const user = {
   mobile: '',
@@ -17,8 +18,10 @@ function login(ev) {
       router.push({
         name: 'Verify',
         params: {mobile:user.mobile}
-      })
-      
+      })      
+    }).catch(error=>{
+      console.log(error)
+      toast(error.response.data.errors.mobile[0],'bottom','error')
     })
 }
 </script>

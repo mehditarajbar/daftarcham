@@ -13,9 +13,10 @@
     "@heroicons/vue": "^2.0.18",
     "@tailwindcss/forms": "^0.5.3",
     "axios": "^1.4.0",
-    "flowbite": "^1.7.0",
+    "tw-elements": "^1.0.0-beta2",
     "vue": "^3.2.47",
     "vue-router": "^4.0.13",
+    "vue-sweetalert2": "^5.0.5",
     "vuex": "^4.0.2",
     "vuex-multi-tab-state": "^1.0.17"
   },

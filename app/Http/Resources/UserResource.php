@@ -17,6 +17,7 @@ class UserResource extends JsonResource
     {
         return [
             'name'=>$this->name,
+            'verified'=>true,
             'mobile'=>$this->mobile,
             'mobile_verified_at'=>$this->mobile_verified_at
         ];

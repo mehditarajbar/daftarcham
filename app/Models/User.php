@@ -49,6 +49,15 @@ class User extends Authenticatable
         return $this->hasOne(VerifyCode::class);
     }
 
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class);
+    }
+
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
     public function isVerified()
     {
         //

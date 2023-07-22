@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import Sidebar from "./Sidebar.vue"
 import Header from "./Header.vue"
-import 'flowbite/dist/flowbite';
+
 const showSidebar = ref(false)
 
 </script>
@@ -40,7 +40,7 @@ const showSidebar = ref(false)
         </div>
         <!-- /Sidebar -->
 
-        <div class="flex-1">
+        <div class="flex-1 relative">
             <div class="bg-white rounded-xl px-2 py-4 ml-5">
                 <button @click="showSidebar = !showSidebar" class="block sm:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -52,7 +52,7 @@ const showSidebar = ref(false)
                 <Header />
             </div>
 
-            <div class="px-2 py-4 ml-5 text-black font-extrabold">
+            <div class="px-2 py-4 ml-5 text-black font-extrabold mt-6">
                 <router-view></router-view>
             </div>
         </div>

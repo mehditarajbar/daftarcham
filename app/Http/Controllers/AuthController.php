@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\VerifyCode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -12,7 +14,7 @@ class AuthController extends Controller
     {
 
         $data = $request->validate([
-            'mobile' => ['required']
+            'mobile' => ['required', 'regex:/^(\\+98|0)?9\\d{9}$/']
         ]);
 
         $user = User::where('mobile', $data['mobile'])->first();
@@ -28,8 +30,6 @@ class AuthController extends Controller
 
     private function login($user)
     {
-
-//        $data['token'] = $user->createToken('main')->plainTextToken;
         return $this->genVerifyCode($user);
     }
 
@@ -47,7 +47,6 @@ class AuthController extends Controller
     protected function genVerifyCode($user)
     {
         $verifyCode = $user->verify()->latest()->first();
-
         if ($verifyCode && Carbon::now()->isBefore($verifyCode->expire_at)) {
             $code = (integer)$verifyCode->code;
         } else {
@@ -59,7 +58,8 @@ class AuthController extends Controller
         }
         return [
             'success' => true,
-            'verify'=>'sending',
+            'step_verify' => 'sending',
+            'message'=>'Send Code Successfully',
             'code' => $code
         ];
 

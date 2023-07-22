@@ -12,10 +12,11 @@ const routes = [
         path: '/',
         redirect: '/dashboard',
         component: () => import('../components/DefaultLayout.vue'),
-        meta: { requiresAuth: true },
+        meta: { middleware: 'auth' },
         children: [
             { path: '/dashboard', name: 'Dashboard', component: () => import('../pages/Dashboard.vue') },
             { path: '/notes', name: 'Notes', component: () => import('../pages/Notes.vue') },
+            { path: '/notes/create', name: 'CreateNote', component: () => import('../pages/CreateNote.vue') },
             { path: '/tasks', name: 'Tasks', component: () => import('../pages/Tasks.vue') },
             { path: '/team', name: 'Team', component: () => import('../pages/Team.vue') },
             { path: '/setting', name: 'Setting', component: () => import('../pages/Setting.vue') },
@@ -29,7 +30,7 @@ const routes = [
         redirect: '/login',
         name: 'Auth',
         component: () => import('../components/AuthLayout.vue'),
-        meta: { isGuest: true },
+        meta: { middleware: 'guest' },
         children: [
             {
                 path: '/login',
@@ -52,22 +53,31 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuth && !store.state.user.token) {
-        next({ name: 'Login' });
+    
+    if (to.meta.middleware === 'guest') {    
+        if (to.name === 'Verify') {
+            if (store.state.user.step_verify === 'sending') {
+                next()
 
-    } else if (to.name === 'Verify') {
-        if (store.state.user.data.verify === 'sending') {
-            next()
-
-        } else {
-
-            next({ name: 'Login' })
+            } else {                
+                next({ name: 'Login' })
+            }
+        } else if (store.state.user.verified && store.state.user.token) {
+            next({ name: 'Dashboard' })
         }
-    } else if (store.state.user.token && (to.meta.isGuest)) {
-        next({ name: 'Dashboard' });
+        else {
+            next()
+        }
+
     } else {
-        next();
+        
+        if (store.state.user.verified && store.state.user.token) {
+            next()
+        } else {
+            next({name:'Login'})
+        }
     }
+
 })
 
 export default router;

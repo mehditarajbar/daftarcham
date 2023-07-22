@@ -1,6 +1,7 @@
 export function setUser(state, user) {
     state.user.data = user;
-
+    state.user.verified=user.verified
+    state.loading=true
 }
 
 export function setToken(state, token) {
@@ -13,7 +14,7 @@ export function setToken(state, token) {
 }
 
 export function setVerify(state, verifyStatus) {
-    state.user.data.verify = verifyStatus
+    state.user.step_verify = verifyStatus
 }
 
 export function logout(state) {

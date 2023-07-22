@@ -1,8 +1,11 @@
 <script setup>
-import store from "../store/index"
+
 import Boxes from "../components/Dashboard/DetalistBox.vue"
 import TodayProgram from "../components/Dashboard/TodayProgram.vue"
+
 import ChatBox from "../components/Dashboard/ChatBox.vue"
+// Initialization for ES Users
+
 </script>
 
 <template>

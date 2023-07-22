@@ -16,7 +16,7 @@ function loguot() {
     <div class="grid grid-rows-3 gap-2">
         <nav class="text-sm text-[#787878]">
             <router-link :to="{ name: 'Dashboard' }" class="flex px-3 py-3 hover:text-black "
-                :class="this.$route.path === '/dashboard' ? 'text-black' : ''">
+                :class="this.$route.path.split('/').includes('dashboard')? 'text-black' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -24,9 +24,8 @@ function loguot() {
                 </svg>
                 <span class=" px-2 py-1">Home</span>
             </router-link>
-
             <router-link :to="{ name: 'Notes' }" class="flex px-3 py-3 hover:text-black"
-                :class="this.$route.path === '/notes' ? 'text-black' : ''">
+                :class="this.$route.path.split('/').includes('notes')? 'text-black' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -37,7 +36,7 @@ function loguot() {
             </router-link>
 
             <router-link :to="{ name: 'Tasks' }" class="flex px-3 py-3  hover:text-black"
-                :class="this.$route.path === '/tasks' ? 'text-black' : ''">
+                :class="this.$route.path.split('/').includes('tasks')? 'text-black' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -48,7 +47,7 @@ function loguot() {
             </router-link>
 
             <router-link :to="{ name: 'Team' }" class="flex px-3 py-3  hover:text-black"
-                :class="this.$route.path === '/team' ? 'text-black' : ''">
+                :class="this.$route.path.split('/').includes('team')? 'text-black' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -64,7 +63,7 @@ function loguot() {
         <hr>
         <nav class="text-sm text-[#787878]">
             <router-link :to="{ name: 'Setting' }" class="flex px-3 py-3 hover:text-black"
-                :class="this.$route.path === '/setting' ? 'text-black' : ''">
+                :class="this.$route.path.split('/').includes('setting') ? 'text-black' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
