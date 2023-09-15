@@ -1,22 +1,25 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { computed } from 'vue';
 import store from '../store';
 
 const router = useRouter();
+const permissions=computed(()=>store.state.user.permissions)
+const role=computed(()=>store.state.user.role)
 
-function loguot() {
+function loguot(){
     store.dispatch('logout')
-        .then(() => {
-            router.push({ name: 'Login' })
-        })
+    .then(()=>{
+        router.push({name:'Login'})
+    })
 }
 </script>
 
 <template>
-    <div class="grid grid-rows-3 gap-2">
-        <nav class="text-sm text-[#787878]">
+    <div class="flex flex-col h-screen">
+        <nav class=" text-sm text-[#787878]">
             <router-link :to="{ name: 'Dashboard' }" class="flex px-3 py-3 hover:text-black "
-                :class="this.$route.path.split('/').includes('dashboard')? 'text-black' : ''">
+                :class="this.$route.path.split('/').includes('dashboard') ? 'text-black' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -25,7 +28,7 @@ function loguot() {
                 <span class=" px-2 py-1">Home</span>
             </router-link>
             <router-link :to="{ name: 'Notes' }" class="flex px-3 py-3 hover:text-black"
-                :class="this.$route.path.split('/').includes('notes')? 'text-black' : ''">
+                :class="this.$route.path.split('/').includes('notes') ? 'text-black' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -36,7 +39,7 @@ function loguot() {
             </router-link>
 
             <router-link :to="{ name: 'Tasks' }" class="flex px-3 py-3  hover:text-black"
-                :class="this.$route.path.split('/').includes('tasks')? 'text-black' : ''">
+                :class="this.$route.path.split('/').includes('tasks') ? 'text-black' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -47,7 +50,7 @@ function loguot() {
             </router-link>
 
             <router-link :to="{ name: 'Team' }" class="flex px-3 py-3  hover:text-black"
-                :class="this.$route.path.split('/').includes('team')? 'text-black' : ''">
+                :class="this.$route.path.split('/').includes('team') ? 'text-black' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -56,29 +59,52 @@ function loguot() {
 
                 <span class="px-2 py-1">Team</span>
             </router-link>
-        </nav>
-        
-    </div>
-    <div class="row-end-3">
-        <hr>
-        <nav class="text-sm text-[#787878]">
-            <router-link :to="{ name: 'Setting' }" class="flex px-3 py-3 hover:text-black"
-                :class="this.$route.path.split('/').includes('setting') ? 'text-black' : ''">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-                </svg>
+            <div v-if="role==='admin'">
+                <hr>
+                <!-- Admin Area -->
+                <router-link v-if="permissions.includes('category-show')"
+                 :to="{ name: 'Categories' }" class="flex px-3 py-3  hover:text-black"
+                    :class="this.$route.path.split('/').includes('categories') ? 'text-black' : ''">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
+                    </svg>
 
-                <span class=" px-2 py-1">Setting</span>
-            </router-link>
-            <a @click="loguot" class="flex px-3 py-3 hover:text-black hover:cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
-                </svg>
-                <span class="px-2 py-1">Logout</span>
-            </a>
+                    <span class="px-2 py-1">Categories</span>
+                </router-link>
+
+                <router-link v-if="permissions.includes('roles-show')" 
+                :to="{name:'RolesPermissions'}"
+                class="flex px-3 py-3  hover:text-black"
+                :class="this.$route.path.split('/').includes('roles-permissions') ? 'text-black' : ''"
+                >
+                <span class="px-2 py-1">Roles And Permission</span>
+                </router-link>
+                <!-- /Admin Area -->
+            </div>
         </nav>
+        <div class="absolute bottom-0">
+            <hr class="fixed w-[100%]">
+            <nav class="text-sm text-[#787878]">
+                <router-link :to="{ name: 'Setting' }" class="flex px-3 py-3 hover:text-black"
+                    :class="this.$route.path.split('/').includes('setting') ? 'text-black' : ''">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                    </svg>
+
+                    <span class=" px-2 py-1">Setting</span>
+                </router-link>
+                <a @click="loguot" class="flex px-3 py-3 hover:text-black hover:cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
+                    </svg>
+                    <span class="px-2 py-1">Logout</span>
+                </a>
+            </nav>
+        </div>
     </div>
 </template>

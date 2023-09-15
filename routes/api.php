@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifyCodeController;
@@ -19,10 +20,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function (){
-    Route::get('/user',[UserController::class,'get']);
+    Route::controller(UserController::class)
+        ->group(function (){
+            Route::get('/user','get');
+            Route::get('/permissions','permissions');
+            Route::post('/logout','logout');
+        });
     Route::apiResource('/notes', NoteController::class);
-
-    Route::post('/logout',[UserController::class,'logout']);
+    Route::apiResource('/categories', CategoriesController::class);
 });
 
 

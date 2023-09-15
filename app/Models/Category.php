@@ -13,6 +13,7 @@ class Category extends Model
 
     protected $fillable=['title','user_id'];
 
+
     public function notes(): HasMany
     {
         return $this->hasMany(Note::class);

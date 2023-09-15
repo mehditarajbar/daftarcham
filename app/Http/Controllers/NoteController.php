@@ -24,11 +24,12 @@ class NoteController extends Controller
      */
     public function store(StoreNoteRequest $request)
     {
+
         $note = Note::create([
             'title' => $request->title,
             'category_id' => (integer)$request->category_id,
             'description' => $request->description,
-            'type' => $request->story_type,
+            'story_type' => $request->story_type,
             'continuation_story' => $request->continuation_story,
             'visibility' => $request->visibility,
             'image'=>$request->image??'Null',

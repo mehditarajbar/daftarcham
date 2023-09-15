@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class UserResource extends JsonResource
 {
@@ -19,7 +20,12 @@ class UserResource extends JsonResource
             'name'=>$this->name,
             'verified'=>true,
             'mobile'=>$this->mobile,
-            'mobile_verified_at'=>$this->mobile_verified_at
+            'mobile_verified_at'=>$this->mobile_verified_at,
+            'ability'=>[
+                'role'=>$this->roles->pluck('name')->first(),
+                'permissions'=>$this->getAllPermissions()->pluck('name')
+            ]
+
         ];
     }
 }

@@ -2,8 +2,8 @@
 import { PhotoIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import store from '../store';
-import toast from '../components/lib/Toast';
+import store from '../../store';
+import toast from '../../components/lib/Toast';
 
 const route = useRoute()
 const router = useRouter()
@@ -13,9 +13,9 @@ let model = ref({
     description: null,
     image: null,
     category_id: null,
-    story_type: null,
-    continuation_story: null,
     visibility: null,
+    continuation_story: null,
+    story_type: null,
 })
 
 function onImageChose(ev) {
@@ -27,6 +27,9 @@ function onImageChose(ev) {
     reader.readAsDataURL(file)
 }
 function create() {
+    if(model.value.category_id!=='3'){
+        delete model.value.continuation_story
+    }   
     store.dispatch('createNote', model.value)
         .then((res) => {
             toast(res.message, 'bottom', 'success')
@@ -45,6 +48,9 @@ function create() {
                 <!-- Column 1 -->
                 <div
                     class="block rounded-md p-4 bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                    <pre>
+                        {{ model }}
+                    </pre>
                     <form @submit.prevent="create">
                         <div class="space-y-12">
                             <div class="border-b border-gray-900/10 pb-12">
@@ -67,7 +73,7 @@ function create() {
                                         <label for="category"
                                             class="block text-sm font-medium leading-6 text-gray-900">Category</label>
                                         <div class="mt-2">
-                                            <select v-model="model.category_id" id="categort" name="category"
+                                            <select  v-model="model.category_id" id="categort" name="category"
                                                 autocomplete="category"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                                 <option value=1>Feelings</option>
@@ -78,13 +84,16 @@ function create() {
                                     </div>
                                     <!-- /Category -->
                                     <!-- Story type -->
-                                    <div class="sm:col-span-3">
+                                    <div class="sm:col-span-3"
+                                    :class="model.category_id=='3'?'block':'hidden'"
+                                    >
                                         <label for="story_type"
                                             class="block text-sm font-medium leading-6 text-gray-900">Story Type</label>
                                         <fieldset>
                                             <div class="mt-6">
                                                 <div class="flex items-center gap-x-3">
                                                     <input v-model="model.story_type" value="new" id="new-story"
+
                                                         name="story-type" type="radio"
                                                         class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                                                     <label for="new-story"
@@ -102,7 +111,9 @@ function create() {
                                         </fieldset>
                                     </div>
 
-                                    <div class="sm:col-span-3">
+                                    <div class="sm:col-span-3"
+                                    :class="model.story_type=='continuation' && model.category_id=='3'?'block':'hidden'"
+                                    >
                                         <label for="continuation-select"
                                             class="block text-sm font-medium leading-6 text-gray-900">Continuation of which
                                             story </label>
@@ -110,7 +121,7 @@ function create() {
                                             <select v-model="model.continuation_story" id="continuation-story"
                                                 name="continuation-story" autocomplete="continuation-story"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                <option>Select Story</option>
+
                                                 <option>Story 1</option>
                                                 <option>Story 2</option>
                                                 <option>Story 3</option>

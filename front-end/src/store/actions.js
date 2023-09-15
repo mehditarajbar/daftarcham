@@ -14,7 +14,7 @@ export async function logout({ commit }) {
 }
 
 export async function login({ commit }, data) {
-   return  await axiosClient.post('/api/auth', data)
+    return await axiosClient.post('/api/auth', data)
         .then(({ data }) => {
             commit('setVerify', data.step_verify)
             return data;
@@ -46,10 +46,55 @@ export async function setUser({ commit }) {
 export async function createNote({ commit }, data) {
     return axiosClient
         .post('/api/notes', data)
-        .then(({data}) => {
+        .then(({ data }) => {
             return data
         })
         .catch(error => {
             throw new error
         })
+}
+
+export function createCategory({commit},data){
+    return axiosClient
+    .post('/api/categories',data)
+    .then(({data})=>{
+        return data
+    })
+    .catch(error=>{
+        throw new error
+    })
+}
+export function updateCategory({commit},data){
+    return axiosClient
+    .put(`/api/categories/${data.id}`,data)
+    .then(({data})=>{
+        return data
+    })
+    .catch(error=>{
+        throw new error
+    })
+}
+
+export function getCategories({ commit }, { url = null } = {}) {
+    url = url || '/api/categories';
+    commit('setCategoriesLoading',true)
+    return axiosClient
+        .get(url)
+        .then((response)=>{
+            commit('setCategoriesLoading',false)
+            commit('setCategories',response.data);
+        })
+
+}
+
+export function getCategory({commit},id){
+    commit('setCategoryLoading',true)
+    return axiosClient
+    .get(`/api/categories/${id}`)
+    .then((res)=>{
+        commit('setCategoryLoading',false)
+        commit('setCategory',res.data)
+        
+        return res;
+    })
 }

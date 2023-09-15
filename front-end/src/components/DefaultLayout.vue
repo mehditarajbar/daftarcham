@@ -9,7 +9,7 @@ const showSidebar = ref(false)
 
 
 <template>
-    <div class="flex relative min-h-screen py-4 px-4">
+    <div class="flex relative  py-4 px-4">
         <!-- Sidebar -->
         <div class="
         bg-[#f5f5f5]
@@ -26,6 +26,7 @@ const showSidebar = ref(false)
         duration-200
         ease-in-out
         translate-x-0
+        min-h-screen
         
         " :class="{ '-translate-x-full left-2 z-10': showSidebar }">
             <button @click="showSidebar = !showSidebar" class="block sm:hidden">

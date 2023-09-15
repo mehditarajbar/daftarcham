@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -13,6 +14,13 @@ class UserController extends Controller
         return  (new UserResource($request->user()));
     }
 
+    public function permissions()
+    {
+        return response([
+            'role'=>Auth::user()->roles->pluck('name')->first(),
+            'permissions'=>Auth::user()->getAllPermissions()->pluck('name')
+        ],Response::HTTP_ACCEPTED);
+    }
     public function logout()
     {
         Auth::user()->currentAccessToken()->delete();

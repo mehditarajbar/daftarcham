@@ -20,8 +20,11 @@ function login(ev) {
         params: {mobile:user.mobile}
       })      
     }).catch(error=>{
-      console.log(error)
-      toast(error.response.data.errors.mobile[0],'bottom','error')
+      if(error.response.status==500){
+        toast(`500 - ${error.response.statusText}`,'bottom','error')
+      }else{
+        toast(error.response.data.errors.mobile[0],'bottom','error')
+      }
     })
 }
 </script>

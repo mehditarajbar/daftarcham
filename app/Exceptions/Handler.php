@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
 
@@ -30,12 +32,19 @@ class Handler extends ExceptionHandler
         });
     }
 
-//    public function render($request,Throwable $exception)
-//    {
-//        if ($exception instanceof UnauthorizedException){
-//            return response()->json([
-//                'error'=>'unauthorized'
-//            ]);
-//        }
-//    }
+    public function render($request,Throwable $exception)
+    {
+
+        if ($exception instanceof AuthenticationException){
+            return response()->json([
+                'error'=>'Authentication Error'
+            ]);
+        }
+
+        if($exception instanceof MethodNotAllowedHttpException){
+            return response()->json([
+                'error'=>'Method Not Supported'
+            ]);
+        }
+    }
 }
