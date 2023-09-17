@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import store from '../../store';
 import toast from '../../components/lib/Toast';
-
+import Card from '../../components/Card.vue'
 const route = useRoute()
 const router = useRouter()
 
@@ -42,6 +42,9 @@ function create() {
 </script>
 
 <template>
+    <Card class="mb-3" custom_class="bg-[#fff7d8]" back="Notes">
+        Create Note
+    </Card>
     <div class="row-start-1 row-span-2 flex  animate-fade-in-down">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 gap-3 md:grid-cols-1">

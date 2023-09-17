@@ -21,7 +21,16 @@ const store = createStore({
         category: {
             loading: false,
             data: []
-        }
+        },
+        notes: {
+            loading: false,
+            links: [],
+            data: []
+        },
+        note: {
+            loading: false,
+            data: []
+        },
 
     },
     getters: {},

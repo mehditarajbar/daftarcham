@@ -1,8 +1,9 @@
 <script setup>
-import { ref } from "vue";
-
-const showToolsBox = ref(false)
-
+import { computed, ref } from "vue";
+import store from '../../store/index';
+import Card from '../../components/Card.vue'
+const showToolsBox = ref(false);
+const notes=computed(()=>store.state.notes)
 </script>
 
 <template>
@@ -18,19 +19,33 @@ const showToolsBox = ref(false)
         <router-link :to="{ name: 'CreateNote' }"
             class="inline-block rounded-full border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
             data-te-ripple-init>
-            New Note
+            Create Note
         </router-link>
-        
-    </div>
-    <button @click="showToolsBox = !showToolsBox" class="bg-white rounded-md top-[73px]  z-10 right-[90px] cursor-pointer w-[33px] p-1 absolute">
-        
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                class="w-6 h-6 mt-[3px] mb-[-5px]">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-            </svg>
-        </button>
-    <div class="row-start-1 row-span-2 flex  animate-fade-in-down">
+        <div class="absolute right-[29px] top-[21px] text-[gray] cursor-pointer" @click="showToolsBox = false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
 
+      </div>
+    </div>
+    <button @click="showToolsBox = !showToolsBox"
+      class="bg-white rounded-md top-[73px]  z-10 right-[90px] cursor-pointer w-[33px] p-1 absolute">
+      <div v-if="!showToolsBox">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="w-6 h-6 mt-[3px] mb-[-5px]">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        </svg>
+      </div>
+
+    </button>
+    <Card class="mb-3" custom_class="bg-[#fff7d8]">
+      Notes
+    </Card>
+    <div v-if="notes.loading" class="flex justify-center">Loading...</div>
+
+    <div class="row-start-1 row-span-2 flex  animate-fade-in-down">
         <!-- Grid -->
         <div class="container mx-auto">
             <div class="grid grid-cols-1 gap-3 md:grid-cols-4">

@@ -31,7 +31,7 @@ function create() {
 
 <template>
     <Card class="mb-3" custom_class="bg-[#fff7d8]" back="Categories">
-        Create Categories
+        Create Category
     </Card>
     <div class="row-start-1 row-span-2 flex  animate-fade-in-down">
         <div class="container mx-auto">
