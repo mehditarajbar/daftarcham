@@ -43,7 +43,18 @@ export async function setUser({ commit }) {
         })
 }
 
-export async function createNote({ commit }, data) {
+export function getNotes({commit}, { url = null } = {}) {
+    url = url || '/api/notes';
+    commit('setNotesLoading',true)
+    return axiosClient
+        .get(url)
+        .then((response)=>{
+            commit('setNotesLoading',false)
+            commit('setNotes',response.data);
+        })
+}
+
+export function createNote({ commit }, data) {
     return axiosClient
         .post('/api/notes', data)
         .then(({ data }) => {

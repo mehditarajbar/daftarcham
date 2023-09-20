@@ -39,7 +39,7 @@ const store = createStore({
     mutations,
     plugins: [
         createMultiTabState([
-            'user', 'categories'
+            'user', 'categories','notes'
         ]),
     ],
 });

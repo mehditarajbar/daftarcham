@@ -4,6 +4,8 @@ import store from '../../store/index';
 import Card from '../../components/Card.vue'
 const showToolsBox = ref(false);
 const notes=computed(()=>store.state.notes)
+
+store.dispatch('getNotes');
 </script>
 
 <template>

@@ -25,6 +25,14 @@ export function logout(state) {
     sessionStorage.removeItem('TOKEN');
 }
 
+export function setNotes(state,not){
+    state.notes.data=not.data
+}
+
+export function setNotesLoading(state,loading){
+    state.notes.loading=loading
+}
+
 export function setCategories(state,cat){
     state.categories.data=cat.data
 }

@@ -1,13 +1,15 @@
 <script setup>
 import { PhotoIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
-import { ref } from 'vue';
+import { ref,computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import store from '../../store';
 import toast from '../../components/lib/Toast';
 import Card from '../../components/Card.vue'
 const route = useRoute()
 const router = useRouter()
+const categories = computed(() => store.state.categories)
 
+store.dispatch('getCategories')
 let model = ref({
     title: '',
     description: null,
@@ -45,7 +47,8 @@ function create() {
     <Card class="mb-3" custom_class="bg-[#fff7d8]" back="Notes">
         Create Note
     </Card>
-    <div class="row-start-1 row-span-2 flex  animate-fade-in-down">
+    <div v-if="categories.loading" class="flex justify-center">Loading...</div>
+    <div v-else class="row-start-1 row-span-2 flex  animate-fade-in-down">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 gap-3 md:grid-cols-1">
                 <!-- Column 1 -->
@@ -76,12 +79,12 @@ function create() {
                                         <label for="category"
                                             class="block text-sm font-medium leading-6 text-gray-900">Category</label>
                                         <div class="mt-2">
-                                            <select  v-model="model.category_id" id="categort" name="category"
+                                            <select  v-model="model.category" id="categort" name="category"
                                                 autocomplete="category"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                <option value=1>Feelings</option>
-                                                <option value=2>Decision making</option>
-                                                <option value=3>Story</option>
+                                                <option v-for="category in categories.data" :key="category.id" :value="category.title">
+                                                {{ category.title}}
+                                                </option>
                                             </select>
                                         </div>
                                     </div>

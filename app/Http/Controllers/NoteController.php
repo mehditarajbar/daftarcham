@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
+use App\Http\Resources\NoteResources;
 use App\Models\Note;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -16,7 +17,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        return NoteResources::collection(Note::all());
     }
 
     /**
