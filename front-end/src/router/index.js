@@ -21,6 +21,7 @@ const routes = [
         children: [
             { path: '/dashboard', name: 'Dashboard', component: () => import('../pages/Dashboard.vue') },
             { path: '/notes', name: 'Notes', component: () => import('../pages/Note/Notes.vue') },
+            { path: '/notes/edit/:id', name: 'NoteUpdate', component: () => import('../pages/Note/NoteUpdate.vue') },
             { path: '/notes/create', name: 'CreateNote', component: () => import('../pages/Note/Create.vue') },
             { path: '/tasks', name: 'Tasks', component: () => import('../pages/Task/Tasks.vue') },
             { path: '/team', name: 'Team', component: () => import('../pages/Team/Team.vue') },

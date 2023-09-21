@@ -5,8 +5,10 @@ namespace App\Exceptions;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -45,6 +47,17 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'error'=>'Method Not Supported'
             ]);
+        }
+
+        if($exception instanceof ValidationException){
+            $errorKeys=$exception->validator->errors()->keys();
+            $error=[];
+            foreach ($errorKeys as $key){
+                $error[$key]=$exception->validator->errors()->get($key)[0];
+            }
+            return response(
+                $error
+            ,Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
 }

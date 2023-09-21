@@ -23,6 +23,7 @@ class Note extends Model
         'continuation_story',
     ];
     protected $with=['category','user'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

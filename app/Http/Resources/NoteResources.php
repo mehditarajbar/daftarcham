@@ -20,6 +20,9 @@ class NoteResources extends JsonResource
             'title'=>$this->title,
             'image'=>$this->image,
             'visibility'=>$this->visibility,
+            'story_type'=>$this->story_type,
+            'description'=>$this->description,
+
             'category'=>$this->whenLoaded('category',[
                 'title'=>$this->category->title
             ]),

@@ -11,7 +11,7 @@ const categories = computed(() => store.state.categories)
 
 store.dispatch('getCategories')
 let model = ref({
-    title: '',
+    title: null,
     description: null,
     image: null,
     category_id: null,
@@ -35,11 +35,19 @@ function create() {
     store.dispatch('createNote', model.value)
         .then((res) => {
             toast(res.message, 'bottom', 'success')
+            router.push({name:'Notes'})
         })
         .catch(error => {
-            console.log('sss')
+            console.log(error)
             toast(error, 'bottom', 'error')
         })
+}
+
+function updateType(e){
+    if(e.target.value==1){
+        model.value.story_type=null
+        model.value.continuation_story=null
+    }
 }
 </script>
 
@@ -54,9 +62,6 @@ function create() {
                 <!-- Column 1 -->
                 <div
                     class="block rounded-md p-4 bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
-                    <pre>
-                        {{ model }}
-                    </pre>
                     <form @submit.prevent="create">
                         <div class="space-y-12">
                             <div class="border-b border-gray-900/10 pb-12">
@@ -79,10 +84,10 @@ function create() {
                                         <label for="category"
                                             class="block text-sm font-medium leading-6 text-gray-900">Category</label>
                                         <div class="mt-2">
-                                            <select  v-model="model.category" id="categort" name="category"
+                                            <select  v-model="model.category_id" @change="updateType" id="categort" name="category"
                                                 autocomplete="category"
                                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                <option v-for="category in categories.data" :key="category.id" :value="category.title">
+                                                <option v-for="category in categories.data" :key="category.id" :value="category.id">
                                                 {{ category.title}}
                                                 </option>
                                             </select>
@@ -91,7 +96,7 @@ function create() {
                                     <!-- /Category -->
                                     <!-- Story type -->
                                     <div class="sm:col-span-3"
-                                    :class="model.category_id=='3'?'block':'hidden'"
+                                    :class="model.category_id==3?'block':'hidden'"
                                     >
                                         <label for="story_type"
                                             class="block text-sm font-medium leading-6 text-gray-900">Story Type</label>

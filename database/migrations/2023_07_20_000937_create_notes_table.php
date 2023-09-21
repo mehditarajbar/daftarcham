@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->enum('visibility', NoteEnum::visibility());
-            $table->string('image');
+            $table->longText('image');
             $table->enum('story_type',NoteEnum::type())->nullable();
             $table->string('continuation_story')->nullable();
             $table->timestamps();
