@@ -48,7 +48,7 @@ class NoteController extends Controller
      */
     public function show(Note $note)
     {
-        //
+        return new NoteResources($note);
     }
 
     /**

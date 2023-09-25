@@ -49,14 +49,14 @@ store.dispatch('getNotes');
     </Card>
     <div v-if="notes.loading" class="flex justify-center">Loading...</div>
 
-    <div class="row-start-1 row-span-2 flex   animate-fade-in-down">
+    <div v-else class="row-start-1 row-span-2 flex">
         <!-- Grid -->
         <div class="container mx-auto">
 
             <div class="grid grid-cols-1 gap-3 md:grid-cols-4">
                 <!-- Column 1 -->
-                <div v-for="( note , index) in notes.data" :key="note.id" class="">
-                    <NoteItem :note="note" :index="index" class="  animate-fade-in-down"/>
+                <div v-for="( note , index) in notes.data" :key="note.id" class="animate-fade-in-down">
+                    <NoteItem :note="note" :index="index" class=" "/>
                 </div>
             </div>
         </div>

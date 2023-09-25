@@ -33,6 +33,13 @@ export function setNotesLoading(state,loading){
     state.notes.loading=loading
 }
 
+export function setNoteLoading(state,loading){
+    state.note.loading=loading
+}
+
+export function setNote(state,data){
+    state.note.data=data.data
+}
 export function setCategories(state,cat){
     state.categories.data=cat.data
 }

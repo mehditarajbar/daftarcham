@@ -65,6 +65,18 @@ export function createNote({ commit }, data) {
         })
 }
 
+export function getNote({commit},id){
+    commit('setNoteLoading',true)
+    return axiosClient
+    .get(`/api/notes/${id}`)
+    .then((res)=>{
+        commit('setNoteLoading',false)
+        commit('setNote',res.data)
+        
+        return res;
+    })
+}
+
 export function createCategory({commit},data){
     return axiosClient
     .post('/api/categories',data)
